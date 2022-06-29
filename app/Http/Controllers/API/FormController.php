@@ -21,6 +21,7 @@ class FormController extends Controller
     public function show(Request $request)
     {
         $perPage = $request->get('per_page');
+
         $students = Student::paginate($perPage);
         foreach ($students as $index => $value) {
             $data['id'] = $value->id;
@@ -30,11 +31,11 @@ class FormController extends Controller
             $datas[] = $data;
         }
         $dataStudent['data'] = $datas;
-        // $dataStudent['next_page_url'] = $students->nextPageUrl();
         $dataStudent['limit'] = $students->perPage();
-        // $dataStudent['total'] = $students->total();
         $dataStudent['total_pages'] = $students->lastPage();
         $dataStudent['current_page'] = $students->currentPage();
+
+
 
         return response()->json([
             'api_status' => 200,
